@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Pessoa
+        </ui:define>
+
+
+
+        <ui:define name="body">
+
+            <h:form id="register"  class="navbar-form navbar-left" >
+
+                <h:inputHidden value="#{bperson.person.id}"/>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p:panel id="basic" header="Cadastro/Edição de Pessoa" style="margin-bottom:20px">
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Nome *" for="description"/>
+                                <p:inputText id="description" label="Descrição" size="100"
+                                             maxlength="50" required="false" value="#{bperson.person.nome}"
+                                             style="text-transform:uppercase"
+                                             class="form-control">
+                                </p:inputText>
+
+                                <p:outputLabel value="CPF *" for="cpf"/>
+                                <p:inputText id="cpf" size="50"
+                                             maxlength="50" required="false" value="#{bperson.person.cpf}"
+                                             style="text-transform:uppercase"
+                                             class="form-control">
+                                </p:inputText>
+
+                                <p:outputLabel value="E-mail *" for="email"/>
+                                <p:inputText id="email" size="50"
+                                             maxlength="50" required="false" value="#{bperson.person.email}"
+                                             style="text-transform:lowercase"
+                                             class="form-control">
+                                </p:inputText>
+
+                                <h:panelGrid columns="2">
+                                    <p:selectBooleanCheckbox value="#{bperson.person.ativo}" />
+                                    <h:outputText value="Ativo? " />
+
+                                    <p:selectBooleanCheckbox value="#{bperson.person.eProfessor}" />
+                                    <h:outputText value="É Profesor? " />
+                                </h:panelGrid>
+
+                            </h:panelGrid>
+                            <br />
+
+                            <p:commandButton class="btn btn-large btn-success" id="Linha1" action="#{bperson.save}" value="Salvar"/>
+                            <p:commandButton class="btn btn-large btn-danger" value="Cancelar" action="/coordcurso/personlist.jsf" ajax="false  "/>                
+                        </p:panel>
+                    </div>
+                </div>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

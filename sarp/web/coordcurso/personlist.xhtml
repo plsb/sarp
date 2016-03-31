@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Pessoas
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="form1">
+                
+                <h:panelGrid columns="4" >
+                    
+                    <h:commandLink action="#{bperson.newPerson}">
+                        <h:graphicImage library="pictures" name="insert.png"
+                                        style="border:0" title="Inserir Módulo" />
+                    </h:commandLink>
+
+                </h:panelGrid>
+
+                <p:dataTable id="tbl" value="#{bperson.list}" var="p"
+                             scrollHeight="200"
+                             rows="10"
+                         paginator="true"
+
+                             >
+                    <f:facet name="header">
+                        Lista de Pessoas
+                    </f:facet>
+
+                    <p:column style="width:30px">                       
+                        <h:outputText
+                            value="#{p.stringAtivo}" />
+                    </p:column>
+                    <p:column style="width:50px">                       
+                        <h:outputText
+                            value="#{p.stringProfessor}" />
+                    </p:column>
+                    <p:column id="description"   
+                              headerText="Nome" filterBy="#{p.nome}">                       
+                        <h:outputText
+                            value="#{p.nome}" />
+                    </p:column>
+                    <p:column id="cpf" headerText="CPF" style="width:100px">
+                        <h:outputText
+                            value="#{p.cpf}" />
+                    </p:column>
+                    <p:column id="email" headerText="Email" style="width:250px">
+                        <h:outputText
+                            value="#{p.email}" />
+                    </p:column>
+
+                    <p:column style="width:50px">
+
+                        <h:commandLink action="#{bperson.edit}">
+                            <h:graphicImage library="pictures" name="edit.png"
+                                            style="border:0" title="Editar Pessoa" />
+                            <f:setPropertyActionListener target="#{bperson.person}"
+                                                         value="#{p}" />
+
+                        </h:commandLink>
+
+                    </p:column>
+                    <p:column style="width:50px">
+
+                        <h:commandLink action="#{bperson.remove}"
+                                       onclick="if (!confirm('Confirma a exclusão da Pessoa ?'))
+                                                   return false;"
+                                       title="Excluir Pessoa">
+                            <h:graphicImage library="pictures" name="remove.png"
+                                            style="border:0" />
+                            <f:setPropertyActionListener target="#{bperson.person}"
+                                                         value="#{p}" />
+                        </h:commandLink>
+
+                    </p:column>
+                    
+
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

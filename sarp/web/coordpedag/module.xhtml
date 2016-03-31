@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Módulo
+        </ui:define>
+
+
+
+        <ui:define name="body">
+
+            <h:form id="register"  class="navbar-form navbar-left" >
+
+                <h:inputHidden value="#{bmodule.module.id}"/>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p:panel id="basic" header="Cadastro/Edição de Módulo" style="margin-bottom:20px">
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Descrição: *" for="description"/>
+                                <p:inputText id="description" label="Descrição" size="100"
+                                             maxlength="50" required="false" value="#{bmodule.module.descricao}"
+                                             style="text-transform:uppercase"
+                                             class="form-control">
+                                </p:inputText>
+                                
+                                <p:outputLabel value="Professor: *" for="prof"/>
+                                <p:inputText id="prof" size="100"
+                                             maxlength="50" required="false" value="#{bmodule.module.professor}"
+                                             style="text-transform:uppercase"
+                                             class="form-control">
+                                </p:inputText>
+                                
+                                <p:outputLabel for="startDate" value="Data de Inicio: *" />
+                                <p:calendar id="startDate" showOn="button" value="#{bmodule.module.data}" required="false"
+                                            requiredMessage="Informe a Data Inicial" pattern="dd/MM/yyyy"
+                                            />
+                                
+                                <p:outputLabel for="dat2" value="Data Limite Para Informar Professores: *" />
+                                <p:calendar id="dat2" showOn="button" value="#{bmodule.module.dataFimInformarProfessores}" required="false"
+                                            requiredMessage="Informe a Data Inicial" pattern="dd/MM/yyyy"
+                                            />
+                                
+                                <p:outputLabel value="Competências: " for="comp"/>
+                                <p:inputTextarea rows="4" cols="100" id="comp" value="#{bmodule.module.competencias}" />
+                                
+                                <p:outputLabel value="Habilidades: " for="hab"/>
+                                <p:inputTextarea rows="4" cols="100" id="hab" value="#{bmodule.module.habilidades}" />
+
+
+                            </h:panelGrid>
+                            <br />
+
+                            <p:commandButton class="btn btn-large btn-success" id="Linha1" action="#{bmodule.save}" value="Salvar"/>
+                            <p:commandButton class="btn btn-large btn-danger" value="Cancelar" action="/coordpedag/modulelist.jsf" ajax="false  "/>                
+                        </p:panel>
+                    </div>
+                </div>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

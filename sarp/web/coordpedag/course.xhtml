@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Curso
+        </ui:define>
+
+
+
+        <ui:define name="body">
+
+            <h:form id="register"  class="navbar-form navbar-left" >
+
+                <h:inputHidden value="#{bcourse.course.id}"/>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p:panel id="basic" header="Cadastro/Edição de Curso" style="margin-bottom:20px">
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Descrição: *" for="description"/>
+                                <p:inputText id="description" label="Descrição" size="100"
+                                             maxlength="50" required="false" value="#{bcourse.course.descricao}"
+                                             style="text-transform:uppercase"
+                                             class="form-control">
+                                </p:inputText>
+
+                                <p:outputLabel value="Coordenador: *" for="coord"/>
+                                <p:selectOneMenu id="coord" value="#{bcourse.course.coordenador}" 
+                                                 class="form-control" style="width:400px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bcourse.coordSelect}"/>					 			
+                                </p:selectOneMenu> 
+                                
+                                
+                                <p:outputLabel value="Instituição: *" for="inst"/>
+                                <p:selectOneMenu id="inst" value="#{bcourse.course.college}" 
+                                                  class="form-control" style="width:400px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bcourse.collegeSelect}"/>					 			
+                                </p:selectOneMenu> 
+
+
+
+                            </h:panelGrid>
+                            <br />
+
+                            <p:commandButton class="btn btn-large btn-success" id="Linha1" action="#{bcourse.save}" value="Salvar"/>
+                            <p:commandButton class="btn btn-large btn-danger" value="Cancelar" action="/coordpedag/courselist.jsf" ajax="false  "/>                
+                        </p:panel>
+                    </div>
+                </div>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

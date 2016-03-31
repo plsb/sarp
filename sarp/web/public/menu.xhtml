@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+    <h:head>
+        <meta charset='utf-8'/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <h:outputStylesheet library="css" name="stylesmenu.css"/>
+        <title>event</title> 
+    </h:head> 
+    <body>
+        <!--<div id='cssmenu'>-->
+        <h:form id="form">
+            <p:megaMenu style="margin-top:-15px">
+                <p:menuitem value="Inicio" url="/template/layout.jsf" />
+                <p:submenu label="Pedagógico" >
+                    <p:column>
+                        <p:submenu label="EAP">
+                            <sec:ifAnyGranted roles="ROLE_CPEDAG">
+                                <p:menuitem value="Módulos" url="/coordpedag/modulelist.jsf" />
+                            </sec:ifAnyGranted>
+                            <sec:ifAnyGranted roles="ROLE_CORD">
+                                <p:menuitem value="Indicar Professores" url="/template/layout.jsf" />
+                            </sec:ifAnyGranted>
+                            <sec:ifAnyGranted roles="ROLE_PROF">
+                                <p:menuitem value="Inserir Aulas" url="/template/layout.jsf" />
+                            </sec:ifAnyGranted>
+
+                        </p:submenu>
+                    </p:column>
+                </p:submenu>
+
+                <p:submenu label="Outros" >
+                    <p:column>
+                        <sec:ifAnyGranted roles="ROLE_CPEDAG">
+                            <p:submenu label="Cadastro">
+                                <p:menuitem value="Instituição" url="/coordpedag/college.jsf" />
+                                <p:menuitem value="Curso" url="/coordpedag/courselist.jsf" />
+                                <p:menuitem value="Disciplina" url="/template/layout.jsf" />
+                                <p:menuitem value="Pessoa" url="/coordcurso/personlist.jsf" />
+
+                            </p:submenu>
+                        </sec:ifAnyGranted>
+                    </p:column>
+                </p:submenu>
+
+            </p:megaMenu>
+        </h:form>
+
+
+        <!--<ul>
+            
+            
+            
+            <li><a href='/sarp/template/layout.jsf'><span>Inicio</span></a></li>
+            <li class='active has-sub'><a href='#'><span>Pedagógico</span></a>
+
+                <ul>
+                    <li class='has-sub'><a href="/sceweb/limited/arealist.jsf"><span>Evolução do Aperfeiçoamento Pedagógico</span></a></li>                       
+                    <li class='has-sub'><a href="/sceweb/limited/districtlist.jsf"><span>Bairro</span></a></li>
+                    <li class='has-sub'><a href="/sceweb/limited/cyclelist.jsf"><span>Ciclo</span></a></li>
+                    <li class='has-sub'><a href="/sceweb/limited/employeelist.jsf"><span>Funcionário</span></a></li>
+                    <li class='has-sub'><a href="/sceweb/limited/teamlist.jsf"><span>Equipe</span></a></li>
+                    <li class='has-sub'><a href="/sceweb/limited/streetlist.jsf"><span>Ruas</span></a></li>
+                </ul>
+            </li>
+            <li class='active has-sub'><a href='#'><span>Consulta</span></a>
+                <ul>
+                    <li class='has-sub'><a href="/sceweb/limited/samplelist.jsf"><span>Amostras</span></a></li>                       
+                    <li class='has-sub'><a href="/sceweb/limited/visitlist.jsf"><span>Visitas</span></a></li>
+                </ul>
+            </li>
+            <li class='active has-sub'><a href='#'><span>Mapas</span></a>
+                <ul>
+                    <li class='has-sub'><a href="/sceweb/limited/mapagente.jsf"><span>Agentes</span></a></li>                       
+                    <li class='has-sub'><a href="/sceweb/limited/map.jsf"><span>Visitas</span></a></li>
+                </ul>
+            </li>                            
+
+        </ul>
+    </div>-->
+
+    </body>
+</html>                                		

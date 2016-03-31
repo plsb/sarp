@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC 
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost/sarp</property> <!-- 192.168.3.38 !-->
+        <property name="connection.username">root</property>
+        <property name="connection.password">040908</property>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="generate_statistics">true</property>
+        <property name="use_sql_coments">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <!-- configuration pool via c3p0-->
+        <property name="hibernate.c3p0.acquire_increment">10</property>  
+        <property name="hibernate.c3p0.timeout">1800</property>  
+        <property name="hibernate.c3p0.idle_test_period">60</property>  
+        <property name="hibernate.c3p0.max_size">100</property>  
+        <property name="hibernate.c3p0.max_statements">50</property>  
+        <property name="hibernate.c3p0.min_size">5</property>   
+        <!-- fim configuration pool via c3p0-->                          
+        <mapping class="br.sarp.user.User"/>
+        <mapping class="br.sarp.persistence.module.Module"/>
+        <mapping class="br.sarp.persistence.course.Course"/>
+        <mapping class="br.sarp.persistence.college.College"/>
+        <mapping class="br.sarp.persistence.person.Person"/>
+        
+        
+        
+    </session-factory>
+</hibernate-configuration>
+

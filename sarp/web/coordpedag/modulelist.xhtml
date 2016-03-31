@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Módulos
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="form1">
+                
+                <h:panelGrid columns="4" >
+                    
+                    <h:commandLink action="#{bmodule.newModule}">
+                        <h:graphicImage library="pictures" name="insert.png"
+                                        style="border:0" title="Inserir Módulo" />
+                    </h:commandLink>
+
+                </h:panelGrid>
+
+                <p:dataTable id="tbl" value="#{bmodule.list}" var="m"
+                             scrollHeight="200"
+                             rows="10"
+                         paginator="true"
+
+                             >
+                    <f:facet name="header">
+                        Lista de Módulos
+                    </f:facet>
+
+                    <p:column id="description"   
+                              headerText="Descrição" filterBy="#{m.descricao}">                       
+                        <h:outputText
+                            value="#{m.descricao}" />
+                    </p:column>
+                    <p:column id="professor" headerText="Professor" style="width:250px">
+                        <h:outputText
+                            value="#{m.professor}" />
+                    </p:column>
+                    <p:column id="data" headerText="Data" style="width:250px">
+                        <h:outputText
+                            value="#{m.data}" />
+                    </p:column>
+
+                    <p:column style="width:50px">
+
+                        <h:commandLink action="#{bmodule.edit}">
+                            <h:graphicImage library="pictures" name="edit.png"
+                                            style="border:0" title="Editar Módulo" />
+                            <f:setPropertyActionListener target="#{bmodule.module}"
+                                                         value="#{m}" />
+
+                        </h:commandLink>
+
+                    </p:column>
+                    <p:column style="width:50px">
+
+                        <h:commandLink action="#{bmodule.remove}"
+                                       onclick="if (!confirm('Confirma a exclusão do Módulo ?'))
+                                                   return false;"
+                                       title="Excluir Módulo">
+                            <h:graphicImage library="pictures" name="remove.png"
+                                            style="border:0" />
+                            <f:setPropertyActionListener target="#{bmodule.module}"
+                                                         value="#{m}" />
+                        </h:commandLink>
+
+                    </p:column>
+                    
+
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

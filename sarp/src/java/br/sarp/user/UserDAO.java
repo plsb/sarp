@@ -5,18 +5,23 @@
  */
 package br.sarp.user;
 
+import br.sarp.persistence.person.Person;
 import br.sarp.util.GenericDAO;
+import br.sarp.util.HibernateUtil;
+import java.util.List;
+import javax.swing.JOptionPane;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
  * @author Pedro Saraiva
  */
-public class UserDAO extends GenericDAO<User>{
+public class UserDAO extends GenericDAO<User> {
 
     public UserDAO() {
         super(User.class);
     }
+
     
-    
-    
+
 }

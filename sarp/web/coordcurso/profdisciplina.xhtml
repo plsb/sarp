@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Professor Disciplina
+        </ui:define>
+
+
+
+        <ui:define name="body">
+
+            <h:form id="register"  class="navbar-form navbar-left" >
+
+                <h:inputHidden value="#{bprofdisciplina.profDisciplina.id}"/>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p:panel visible="true" id="basic1" header="Periodo" style="margin-bottom:20px">
+                            <h:panelGrid columns="3">
+
+                                <p:outputLabel value="Período: *" for="per"/>
+                                <p:selectOneMenu id="per" value="#{bprofdisciplina.periodo}" 
+                                                 class="form-control" style="width:200px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bprofdisciplina.periodoSelect}"/>					 			
+                                </p:selectOneMenu>
+                                <p:commandButton class="btn btn-large btn-success" id="Linha1" action="#{bprofdisciplina.mudarPeriodo}"
+                                                 update="register" value="ok" />
+                            </h:panelGrid>
+                            <br />
+                        </p:panel>
+                        <p:panel visible="#{bprofdisciplina.visible}" id="basic" header="Cadastro/Edição de Professor-Disciplina">
+                            <h:panelGrid columns="2">
+                                <p:selectBooleanCheckbox value="#{bprofdisciplina.profDisciplina.ativo}" />
+                                <h:outputText value="Professor atual da disciplina? " />
+                                <p:outputLabel value="Professor: *" for="pes"/>
+                                <p:selectOneMenu id="pes" value="#{bprofdisciplina.profDisciplina.professor}" 
+                                                 class="form-control" style="width:400px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bprofdisciplina.pessoaSelect}"/>					 			
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Disciplina: *" for="disc"/>
+                                <p:selectOneMenu id="disc" value="#{bprofdisciplina.profDisciplina.disciplina}" 
+                                                 class="form-control" style="width:400px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bprofdisciplina.disciplinaSelect}"/>					 			
+                                </p:selectOneMenu>
+
+
+                                <p:commandButton class="btn btn-large btn-success" id="Linha2" action="#{bprofdisciplina.save}" value="Salvar" ajax="true"
+                                                 update="basic3, basic"/>
+                            </h:panelGrid>
+                        </p:panel>
+                        <br />
+                        <p:panel visible="#{bprofdisciplina.visible}" id="basic3" >
+                            <p:dataTable id="tbl" value="#{bprofdisciplina.lista}" var="p"
+                                         scrollHeight="200"
+                                         rows="10"
+                                         paginator="true"
+
+                                         >
+                                <f:facet name="header">
+                                    Lista de Disciplinas
+                                </f:facet>
+
+                                <p:column id="disciplina"   
+                                          headerText="Disciplina" filterBy="#{p.disciplina.descricao}">                       
+                                    <h:outputText
+                                        value="#{p.disciplina.descricao}" />
+                                </p:column>
+                                <p:column id="profes" headerText="Professor" filterBy="#{p.professor.nome}" style="width:250px">
+                                    <h:outputText
+                                        value="#{p.professor.nome}" />
+                                </p:column>
+                                <p:column id="perio" headerText="Período" style="width:50px">
+                                    <h:outputText
+                                        value="#{p.periodo.descricao}" />
+                                </p:column>
+                                <p:column id="curs" headerText="Curso" style="width:200px">
+                                    <h:outputText
+                                        value="#{p.disciplina.curso.descricao}" />
+                                </p:column>
+
+                                <p:column style="width:50px">
+
+                                    <h:commandLink action="#{bprofdisciplina.edit}">
+                                        <h:graphicImage library="pictures" name="edit.png" 
+                                                        style="border:0" title="Editar Professor-Disciplina" />
+                                        <f:setPropertyActionListener target="#{bprofdisciplina.profDisciplina}"
+                                                                     value="#{p}" />
+
+                                    </h:commandLink>
+
+                                </p:column>
+                                <p:column style="width:50px">
+
+                                    <h:commandLink action="#{bprofdisciplina.remove}"
+                                                   onclick="if (!confirm('Confirma a exclusão da Disciplina ?'))
+                                                   return false;" 
+                                                   title="Excluir Professor-Disciplina">
+                                        <h:graphicImage library="pictures" name="remove.png"
+                                                        style="border:0" />
+                                        <f:setPropertyActionListener target="#{bprofdisciplina.profDisciplina}"
+                                                                     value="#{p}" />
+                                    </h:commandLink>
+
+                                </p:column>
+
+
+                            </p:dataTable>
+
+
+                        </p:panel>
+
+                        <br />
+                        <p:commandButton class="btn btn-large btn-danger" value="Cancelar" action="/template/layout.jsf" ajax="true"/>                
+                    </div>
+                </div>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

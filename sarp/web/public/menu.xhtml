@@ -37,15 +37,24 @@
 
                 <p:submenu label="Outros" >
                     <p:column>
-                        <sec:ifAnyGranted roles="ROLE_CPEDAG">
-                            <p:submenu label="Cadastro">
+
+                        <p:submenu label="Cadastro">
+                            <sec:ifAnyGranted roles="ROLE_CPEDAG">
                                 <p:menuitem value="Instituição" url="/coordpedag/college.jsf" />
                                 <p:menuitem value="Curso" url="/coordpedag/courselist.jsf" />
-                                <p:menuitem value="Disciplina" url="/template/layout.jsf" />
                                 <p:menuitem value="Pessoa" url="/coordcurso/personlist.jsf" />
+                            </sec:ifAnyGranted>
+                            <sec:ifAnyGranted roles="ROLE_CORD">
+                                <p:menuitem value="Disciplina" url="/coordcurso/disciplinalist.jsf" />
+                                <p:menuitem value="Professor-Disciplina" url="/coordcurso/profdisciplina.jsf" />
+                            </sec:ifAnyGranted>
+                        </p:submenu>
+                        <p:submenu label="Usuário">
+                            <sec:ifAnyGranted roles="ROLE_CPEDAG,ROLE_CORD">
+                                <p:menuitem value="Definir Usuário" url="/coordcurso/selectperson.jsf" />
+                            </sec:ifAnyGranted>
+                        </p:submenu>
 
-                            </p:submenu>
-                        </sec:ifAnyGranted>
                     </p:column>
                 </p:submenu>
 

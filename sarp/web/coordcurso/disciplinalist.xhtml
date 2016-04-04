@@ -9,7 +9,7 @@
     <ui:composition template="/template/layout.xhtml">
 
         <ui:define name="title">
-            Pessoas
+            Disciplinas
         </ui:define>
 
         <ui:define name="body">
@@ -17,51 +17,48 @@
                 
                 <h:panelGrid columns="4" >
                     
-                    <p:commandLink action="#{bperson.newPerson}" ajax="true">
+                    <p:commandLink action="#{bdisciplina.newDisciplina}" ajax="true">
                         <h:graphicImage library="pictures" name="insert.png"
-                                        style="border:0" title="Inserir Pessoa" />
+                                        style="border:0" title="Inserir Disciplina" />
                     </p:commandLink>
 
                 </h:panelGrid>
 
-                <p:dataTable id="tbl" value="#{bperson.list}" var="p"
+                <p:dataTable id="tbl" value="#{bdisciplina.list}" var="p"
                              scrollHeight="200"
                              rows="10"
                          paginator="true"
 
                              >
                     <f:facet name="header">
-                        Lista de Pessoas
+                        Lista de Disciplinas
                     </f:facet>
 
-                    <p:column style="width:30px">                       
-                        <h:outputText
-                            value="#{p.stringAtivo}" />
-                    </p:column>
-                    <p:column style="width:50px">                       
-                        <h:outputText
-                            value="#{p.stringProfessor}" />
-                    </p:column>
+                    
                     <p:column id="description"   
-                              headerText="Nome" filterBy="#{p.nome}">                       
+                              headerText="Descrição" filterBy="#{p.descricao}">                       
                         <h:outputText
-                            value="#{p.nome}" />
+                            value="#{p.descricao}" />
                     </p:column>
-                    <p:column id="cpf" headerText="CPF" style="width:100px">
+                    <p:column id="cpf" headerText="Semestre" filterBy="#{p.semestre.descricao}" style="width:100px">
                         <h:outputText
-                            value="#{p.cpf}" />
+                            value="#{p.semestre.descricao}" />
                     </p:column>
-                    <p:column id="email" headerText="Email" style="width:250px">
+                    <p:column id="ch" headerText="CH" style="width:50px">
                         <h:outputText
-                            value="#{p.email}" />
+                            value="#{p.ch}" />
+                    </p:column>
+                    <p:column id="email" headerText="Curso" style="width:250px">
+                        <h:outputText
+                            value="#{p.curso.descricao}" />
                     </p:column>
 
                     <p:column style="width:50px">
 
                         <h:commandLink action="#{bperson.edit}">
                             <h:graphicImage library="pictures" name="edit.png"
-                                            style="border:0" title="Editar Pessoa" />
-                            <f:setPropertyActionListener target="#{bperson.person}"
+                                            style="border:0" title="Editar Disciplina" />
+                            <f:setPropertyActionListener target="#{bdisciplina.disciplina}"
                                                          value="#{p}" />
 
                         </h:commandLink>
@@ -70,12 +67,12 @@
                     <p:column style="width:50px">
 
                         <h:commandLink action="#{bperson.remove}"
-                                       onclick="if (!confirm('Confirma a exclusão da Pessoa ?'))
+                                       onclick="if (!confirm('Confirma a exclusão da Disciplina ?'))
                                                    return false;"
-                                       title="Excluir Pessoa">
+                                       title="Excluir Disciplina">
                             <h:graphicImage library="pictures" name="remove.png"
                                             style="border:0" />
-                            <f:setPropertyActionListener target="#{bperson.person}"
+                            <f:setPropertyActionListener target="#{bdisciplina.disciplina}"
                                                          value="#{p}" />
                         </h:commandLink>
 

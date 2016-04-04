@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Disciplina
+        </ui:define>
+
+
+
+        <ui:define name="body">
+
+            <h:form id="register"  class="navbar-form navbar-left" >
+
+                <h:inputHidden value="#{bdisciplina.disciplina.id}"/>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p:panel id="basic" header="Cadastro/Edição de Disciplina" style="margin-bottom:20px">
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Descrição: *" for="description"/>
+                                <p:inputText id="description" label="Descrição" size="100"
+                                             maxlength="50" required="false" value="#{bdisciplina.disciplina.descricao}"
+                                             style="text-transform:uppercase"
+                                             class="form-control">
+                                </p:inputText>
+                                
+                                <p:outputLabel value="Semestre: *" for="semestre"/>
+                                <p:selectOneMenu id="semestre" value="#{bdisciplina.disciplina.semestre}" 
+                                                 class="form-control" style="width:400px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bdisciplina.semestreSelect}"/>					 			
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Carga Horária: *" for="ch"/>
+                                <p:inputText id="ch" size="100"
+                                             maxlength="50" required="false" value="#{bdisciplina.disciplina.ch}"
+                                             style="text-transform:uppercase"
+                                             class="form-control">
+                                </p:inputText>
+                                <p:outputLabel value="Curso: *" for="c"/>
+                                <p:inputText id="c"  size="100" readonly="true"
+                                             maxlength="50" required="false" value="#{bdisciplina.disciplina.curso.descricao}"
+                                             style="text-transform:uppercase"
+                                             class="form-control">
+                                </p:inputText>
+                            </h:panelGrid>
+                            <br />
+
+                            <p:commandButton class="btn btn-large btn-success" id="Linha1" action="#{bdisciplina.save}" value="Salvar" ajax="true"/>
+                            <p:commandButton class="btn btn-large btn-danger" value="Cancelar" action="/coordcurso/disciplinalist.jsf" ajax="true"/>                
+                        </p:panel>
+                    </div>
+                </div>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

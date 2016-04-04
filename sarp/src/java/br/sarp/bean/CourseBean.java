@@ -67,8 +67,10 @@ public class CourseBean {
         }
 
         if (mostraMensagemCamposObrigatorios) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Preencha os campos Obrigatórios (*)", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Preencha os campos Obrigatórios (*)");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
+            
         }
 
         course.setDescricao(course.getDescricao().toUpperCase());
@@ -76,10 +78,13 @@ public class CourseBean {
         if (course.getId() == 0) {
             
             dao.add(course);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro Realizado com Sucesso!", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cadastro Realizado com Sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            
         } else {
             dao.update(course);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Edição Realizada com Sucesso!", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Edição Realizada com Sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
         return "/coordpedag/courselist.jsf";
@@ -115,7 +120,7 @@ public class CourseBean {
             //ContextoBean contextoBean = scs.util.ContextoUtil.getContextoBean();
 
             PersonDAO dao = new PersonDAO();
-            List<Person> categorias = dao.list();
+            List<Person> categorias = dao.listOrderBy("nome", "", null);
             this.showDataSelectPerson(this.coordSelect, categorias, "");
         }
 

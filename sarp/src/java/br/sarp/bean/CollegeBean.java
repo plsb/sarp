@@ -52,19 +52,22 @@ public class CollegeBean {
 
     public String save() {
         if(college.getDescricao().equals("")){
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Preencha os campos Obrigatórios (*)", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Preencha os campos Obrigatórios (*)");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
         } 
         
         college.setDescricao(college.getDescricao().toUpperCase());
                 
-        if (college.getId() == 0) {
+        if (college.getId() == null) {
             dao.add(college);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Cadastro Realizado com Sucesso!", ""));
-
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cadastro Realizado com Sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            
         } else {
             dao.update(college);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Edição Realizada com Sucesso!", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Edição Realizada com Sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
 

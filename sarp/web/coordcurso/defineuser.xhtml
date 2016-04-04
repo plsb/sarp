@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+
+
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Definir Usuário
+        </ui:define>
+
+
+
+        <ui:define name="body">
+
+            <h:form id="register"  class="navbar-form navbar-left" >             
+
+                <h:inputHidden value="#{bdefineuser.usuario.id}"/>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p:panel id="basic" header="Definir Usuário" style="margin-bottom:20px">
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Pessoa: #{bdefineuser.pessoaSelecionada.nome}" />
+                                <h:panelGrid columns="2">
+                                    <p:selectBooleanCheckbox value="#{bdefineuser.usuario.active}" />
+                                    <h:outputText value="Ativo? " />
+                                </h:panelGrid>
+                                <p:outputLabel value="Usuário: *" />
+                                <p:inputText value="#{bdefineuser.usuario.login}" class="form-control"
+                                             size="50" maxlength="50"/>
+                                <p:outputLabel value="Senha: *" />
+                                <p:inputText value="#{bdefineuser.senha}" class="form-control"
+                                             size="50" maxlength="50"/>
+                                <p:outputLabel value="Confirmar Senha: *" />
+                                <p:inputText value="#{bdefineuser.confirmarSenha}" class="form-control"
+                                             size="50" maxlength="50"/>
+                                <h:panelGrid columns="2">
+                                    <p:panel id="basic2" header="Permissões" style="margin-bottom:20px">
+                                        <p:selectBooleanCheckbox value="#{bdefineuser.professor}" />
+                                        <h:outputText value="Professor? " />
+                                        <sec:ifAnyGranted roles="ROLE_CPEDAG">
+                                            <p:selectBooleanCheckbox value="#{bdefineuser.ccurso}" />
+                                            <h:outputText value="Coordenação de Curso? " />
+                                            <p:selectBooleanCheckbox value="#{bdefineuser.cpedagogica}" />
+                                            <h:outputText value="Coordenação Pedagógica?" />
+                                        </sec:ifAnyGranted>
+                                    </p:panel>
+
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <br />
+
+                            <p:commandButton class="btn btn-large btn-success" id="Linha1" action="#{bdefineuser.save}" value="Salvar" ajax="true"/>
+                            <p:commandButton class="btn btn-large btn-danger" value="Cancelar" action="#{bdefineuser.cancelar}" ajax="true"/>                
+                        </p:panel>
+                    </div>
+                </div>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

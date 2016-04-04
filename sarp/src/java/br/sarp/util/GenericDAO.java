@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -39,14 +40,13 @@ public abstract class GenericDAO<T> {
             this.getSessao().save(entity);
             this.getTransacao().commit();
 
-           
         } catch (HibernateException e) {
-            System.out.println(e.getMessage()+" | "+e.getCause());
+            System.out.println(e.getMessage() + " | " + e.getCause());
             JOptionPane.showMessageDialog(null, "Não foi possível inserir " + entity.getClass()
                     + ". Erro: " + e.getMessage());
             return false;
         } finally {
-            
+
             getSessao().close();
         }
         return true;
@@ -58,7 +58,7 @@ public abstract class GenericDAO<T> {
             this.setTransacao(getSessao().beginTransaction());
             this.getSessao().merge(entity);
             this.getTransacao().commit();
-            
+
         } catch (HibernateException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível atualizar " + entity.getClass()
                     + ". Erro: " + e.getMessage());
@@ -76,7 +76,7 @@ public abstract class GenericDAO<T> {
             this.setTransacao(getSessao().beginTransaction());
             this.getSessao().delete(entity);
             this.getTransacao().commit();
-            
+
         } catch (HibernateException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível remover " + entity.getClass()
                     + ". Erro: " + e.getMessage());
@@ -94,7 +94,7 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(classe).list();
-            
+
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();
@@ -105,9 +105,32 @@ public abstract class GenericDAO<T> {
         }
         return lista;
     }
-    
-    
-    
+
+    public List<T> listOrderBy(String campo, String campoWhere, Object valor) {
+        List<T> lista = null;
+        try {
+            this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            setTransacao(getSessao().beginTransaction());
+            if (campoWhere.equals("")) {
+                lista = this.getSessao().createCriteria(classe).
+                        addOrder(Order.asc(campo)).list();
+            } else {
+                lista = this.getSessao().createCriteria(classe).
+                        add(Restrictions.eq(campoWhere, valor)).
+                        addOrder(Order.asc(campo)).list();
+            }
+
+        } catch (Throwable e) {
+            if (getTransacao().isActive()) {
+                getTransacao().rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+        return lista;
+    }
+
     /*
      * ao passar uma chave primária
      * ele retorna um objeto referente a chave primária
@@ -131,7 +154,27 @@ public abstract class GenericDAO<T> {
             this.setSessao(HibernateUtil.getSessionFactory().openSession());
             setTransacao(getSessao().beginTransaction());
             lista = this.getSessao().createCriteria(classe).add(Restrictions.eq(campo, valor)).list();
-            
+
+        } catch (Throwable e) {
+            if (getTransacao().isActive()) {
+                getTransacao().rollback();
+            }
+            JOptionPane.showMessageDialog(null, "Não foi possível listar: " + e.getMessage());
+        } finally {
+            sessao.close();
+        }
+        return lista;
+
+    }
+    
+    public List<T> checkExistsIn(String campo, List<Object> valor) {
+        List<T> lista = null;
+        try {
+            this.setSessao(HibernateUtil.getSessionFactory().openSession());
+            setTransacao(getSessao().beginTransaction());
+            lista = this.getSessao().createCriteria(classe).
+                    add(Restrictions.in(campo, valor)).list();
+
         } catch (Throwable e) {
             if (getTransacao().isActive()) {
                 getTransacao().rollback();

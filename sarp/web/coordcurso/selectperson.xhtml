@@ -11,7 +11,7 @@
     <ui:composition template="/template/layout.xhtml">
 
         <ui:define name="title">
-            Instituição
+            Seleconar Pessoa
         </ui:define>
 
 
@@ -20,24 +20,20 @@
 
             <h:form id="register"  class="navbar-form navbar-left" >
 
-                <h:inputHidden value="#{bcollege.college.id}"/>
-
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <p:panel id="basic" header="Cadastro/Edição de Instituição" style="margin-bottom:20px">
+                        <p:panel id="basic" header="Selecionar Pessoa para Definir Usuário" style="margin-bottom:20px">
                             <h:panelGrid columns="1">
-                                <p:outputLabel value="Descrição: *" for="description"/>
-                                <p:inputText id="description" label="Descrição" size="100"
-                                             maxlength="50" required="false" value="#{bcollege.college.descricao}"
-                                             style="text-transform:uppercase"
-                                             class="form-control">
-                                </p:inputText>
-                                
-                                
+                                <p:outputLabel value="Pessoa: *" for="coord"/>
+                                <p:selectOneMenu id="coord" value="#{bdefineuser.pessoaSelecionada}" 
+                                                 class="form-control" style="width:400px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bdefineuser.personSelect}"/>					 			
+                                </p:selectOneMenu> 
                             </h:panelGrid>
                             <br />
 
-                            <p:commandButton class="btn btn-large btn-success" id="Linha1" action="#{bcollege.save}" value="Salvar" ajax="true"/>
+                            <p:commandButton class="btn btn-large btn-success" id="Linha1" action="#{bdefineuser.proximo}" value="Próximo >>" ajax="true"/>
                             <p:commandButton class="btn btn-large btn-danger" value="Cancelar" action="/template/layout.jsf" ajax="true"/>                
                         </p:panel>
                     </div>

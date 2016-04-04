@@ -5,17 +5,21 @@
  */
 package br.sarp.persistence.person;
 
+import br.sarp.user.User;
+import br.sarp.util.UsuarioAtivo;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author pelusb
  */
 @Entity
-public class Person {
+public class Person implements Comparable<Person>{
     
     @Id
     @GeneratedValue
@@ -30,12 +34,23 @@ public class Person {
     private boolean ativo;
     
     private boolean eProfessor;
+    
+    @OneToMany(mappedBy = "pessoa" )
+    private List<User> usuario;
 
+    public List<User> getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(List<User> usuario) {
+        this.usuario = usuario;
+    }
+    
     public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -141,6 +156,11 @@ public class Person {
             return "Professor";
         } 
         return "";
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return nome.compareTo(o.nome);
     }
 
 }

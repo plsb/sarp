@@ -3,19 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.sarp.persistence.college;
+package br.sarp.persistence.periodo;
 
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- *
- * @author pelusb
- */
 @Entity
-public class College {
+public class Periodo {
     
     @Id
     @GeneratedValue
@@ -41,9 +37,9 @@ public class College {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 11 * hash + this.id;
-        hash = 11 * hash + Objects.hashCode(this.descricao);
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.id);
+        hash = 89 * hash + Objects.hashCode(this.descricao);
         return hash;
     }
 
@@ -58,11 +54,11 @@ public class College {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final College other = (College) obj;
-        if (this.id != other.id) {
+        final Periodo other = (Periodo) obj;
+        if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
-        if (!Objects.equals(this.descricao, other.descricao)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -70,9 +66,7 @@ public class College {
 
     @Override
     public String toString() {
-        return "College{" + "id=" + id + ", descricao=" + descricao + '}';
+        return "Periodo{" + "id=" + id + ", descricao=" + descricao + '}';
     }
-    
-    
     
 }

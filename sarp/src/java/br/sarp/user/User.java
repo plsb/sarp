@@ -44,6 +44,8 @@ public class User implements Serializable {
     
     @ManyToOne
     private Person pessoa;
+    
+    private String codAcesso;
 
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
     @JoinTable(
@@ -153,4 +155,12 @@ public class User implements Serializable {
         this.pessoa = pessoa;
     }
 
+    public String getCodAcesso() {
+        return codAcesso;
+    }
+
+    public void setCodAcesso(String codAcesso) {
+        this.codAcesso = codAcesso;
+    }
+    
 }

@@ -61,12 +61,14 @@ public class ModuleBean {
         }
 
         if (mostraMensagemCamposObrigatorios) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Preencha os campos Obrigatórios (*)", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Preencha os campos Obrigatórios (*)");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
         }
 
         if (module.getDataFimInformarProfessores().after(module.getData())) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Data limite para informar professores não pode ser maior que a data de acontecimento do módulo!", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Data limite para informar professores não pode ser maior que a data de acontecimento do módulo!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
         }
 
@@ -78,10 +80,13 @@ public class ModuleBean {
         if (module.getId() == 0) {
             module.setDataCadastro(new Date());
             dao.add(module);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro Realizado com Sucesso!", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cadastro Realizado com Sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
         } else {
             dao.update(module);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Edição Realizada com Sucesso!", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Edição Realizada com Sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
         return "/coordpedag/modulelist.jsf";

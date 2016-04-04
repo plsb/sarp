@@ -60,35 +60,41 @@ public class PersonBean {
         }
 
         if (mostraMensagemCamposObrigatorios) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Preencha os campos Obrigatórios (*)", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Preencha os campos Obrigatórios (*)");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
         }
 
         if (!Util.CPF(person.getCpf())) {
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF Inválido", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "CPF Inválido!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             return "";
         }
 
         person.setNome(person.getNome().toUpperCase());
         person.setEmail(person.getEmail().toLowerCase());
 
-        if (person.getId() == 0) {
+        if (person.getId() == null) {
             if (dao.checkExists("cpf", person.getCpf()).size() > 0) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF Já Cadastrado", ""));
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "CPF Já Cadastrado!");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "";
             }
-            
+
             if (dao.checkExists("email", person.getEmail()).size() > 0) {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "EMAIL Já Cadastrado", ""));
+                FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Email já Cadastrado!");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
                 return "";
             }
 
             person.setAtivo(true);
             dao.add(person);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Cadastro Realizado com Sucesso!", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cadastro Realizado com Sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         } else {
             dao.update(person);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Edição Realizada com Sucesso!", ""));
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Edição Realizada com Sucesso!");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         }
 
         return "/coordcurso/personlist.jsf";

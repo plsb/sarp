@@ -74,7 +74,7 @@ public class DisciplinaBean {
 
         disciplina.setDescricao(disciplina.getDescricao().toUpperCase());
 
-        if (disciplina.getId() == 0) {
+        if (disciplina.getId() == null) {
 
             dao.add(disciplina);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cadastro Realizado com Sucesso!");

@@ -1,12 +1,14 @@
 
 package br.sarp.persistence.module;
 
+import br.sarp.persistence.periodo.Periodo;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -15,7 +17,7 @@ public class Module implements Serializable{
     
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     
     private String descricao;
     
@@ -33,12 +35,15 @@ public class Module implements Serializable{
     private String competencias;
     
     private String habilidades;
+    
+    @ManyToOne
+    private Periodo periodo;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -99,24 +104,35 @@ public class Module implements Serializable{
     }
 
     @Override
+    public String toString() {
+        return "Module{" + "id=" + id + ", descricao=" + descricao + ", data=" + data + ", dataCadastro=" + dataCadastro + ", dataFimInformarProfessores=" + dataFimInformarProfessores + ", professor=" + professor + ", competencias=" + competencias + ", habilidades=" + habilidades + '}';
+    }
+
+    public Periodo getPeriodo() {
+        return periodo;
+    }
+
+    public void setPeriodo(Periodo periodo) {
+        this.periodo = periodo;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + this.id;
-        hash = 31 * hash + Objects.hashCode(this.descricao);
-        hash = 31 * hash + Objects.hashCode(this.data);
-        hash = 31 * hash + Objects.hashCode(this.dataCadastro);
-        hash = 31 * hash + Objects.hashCode(this.dataFimInformarProfessores);
-        hash = 31 * hash + Objects.hashCode(this.professor);
-        hash = 31 * hash + Objects.hashCode(this.competencias);
-        hash = 31 * hash + Objects.hashCode(this.habilidades);
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.descricao);
+        hash = 83 * hash + Objects.hashCode(this.data);
+        hash = 83 * hash + Objects.hashCode(this.dataCadastro);
+        hash = 83 * hash + Objects.hashCode(this.dataFimInformarProfessores);
+        hash = 83 * hash + Objects.hashCode(this.professor);
+        hash = 83 * hash + Objects.hashCode(this.competencias);
+        hash = 83 * hash + Objects.hashCode(this.habilidades);
+        hash = 83 * hash + Objects.hashCode(this.periodo);
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
         if (obj == null) {
             return false;
         }
@@ -124,19 +140,10 @@ public class Module implements Serializable{
             return false;
         }
         final Module other = (Module) obj;
-        if (this.id != other.id) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         if (!Objects.equals(this.descricao, other.descricao)) {
-            return false;
-        }
-        if (!Objects.equals(this.professor, other.professor)) {
-            return false;
-        }
-        if (!Objects.equals(this.competencias, other.competencias)) {
-            return false;
-        }
-        if (!Objects.equals(this.habilidades, other.habilidades)) {
             return false;
         }
         if (!Objects.equals(this.data, other.data)) {
@@ -148,12 +155,21 @@ public class Module implements Serializable{
         if (!Objects.equals(this.dataFimInformarProfessores, other.dataFimInformarProfessores)) {
             return false;
         }
+        if (!Objects.equals(this.professor, other.professor)) {
+            return false;
+        }
+        if (!Objects.equals(this.competencias, other.competencias)) {
+            return false;
+        }
+        if (!Objects.equals(this.habilidades, other.habilidades)) {
+            return false;
+        }
+        if (!Objects.equals(this.periodo, other.periodo)) {
+            return false;
+        }
         return true;
     }
-
-    @Override
-    public String toString() {
-        return "Module{" + "id=" + id + ", descricao=" + descricao + ", data=" + data + ", dataCadastro=" + dataCadastro + ", dataFimInformarProfessores=" + dataFimInformarProfessores + ", professor=" + professor + ", competencias=" + competencias + ", habilidades=" + habilidades + '}';
-    }
+    
+    
     
 }

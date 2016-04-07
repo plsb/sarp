@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+
+    <ui:composition template="/template/layout.xhtml">
+
+        <ui:define name="title">
+            Indicar Professores Para Módulo
+        </ui:define>
+
+
+
+        <ui:define name="body">
+
+            <h:form id="register"  class="navbar-form navbar-left" >
+
+                <!--<h:inputHidden value="#"/>-->
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p:panel visible="true" id="basic1" header="Periodo" style="margin-bottom:20px">
+                            <h:panelGrid columns="3">
+
+                                <p:outputLabel value="Período: *" for="per"/>
+                                <p:selectOneMenu id="per" value="#{bindicaprofessores.periodo}" 
+                                                 class="form-control" style="width:200px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bindicaprofessores.periodoSelect}"/>					 			
+                                </p:selectOneMenu>
+                                <p:commandButton class="btn btn-large btn-success" id="Linha1"  action="#{bindicaprofessores.mudaModulo}"
+                                                 update="register" value="ok" />
+                            </h:panelGrid>
+                            <br />
+                        </p:panel>
+                        <p:panel visible="#{bindicaprofessores.visibilidadeModulos}" id="basic" header="Módulo" style="margin-bottom:20px">
+                            <h:panelGrid columns="3">
+
+                                <p:outputLabel value="Módulo: *" for="modul"/>
+                                <p:selectOneMenu id="modul" value="#{bindicaprofessores.modulo}" 
+                                                 class="form-control" style="width:200px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bindicaprofessores.moduloSelect}"/>					 			
+                                </p:selectOneMenu>
+                                <p:commandButton class="btn btn-large btn-success" id="btn3"  action="#{bindicaprofessores.mudaProfessores}"
+                                                 update="register" value="ok" />
+                            </h:panelGrid>
+                            <br />
+                        </p:panel>
+                        <p:panel visible="#{bindicaprofessores.visibilidadeProfessores}" id="basic3" header="Professores" style="margin-bottom:20px">
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Pessoa: *" for="pes"/>
+                                <p:selectOneMenu id="pes" value="#{bindicaprofessores.pessoa}" 
+                                                 class="form-control" style="width:300px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bindicaprofessores.pessoaSelect}"/>					 			
+                                </p:selectOneMenu>
+                                <p:commandButton class="btn btn-large btn-success" id="btn4"  action="#{bindicaprofessores.adicionarIndicacao}"
+                                                 update="basic3" value="adicionar" />
+                            </h:panelGrid>
+
+
+
+
+                            <p:dataTable id="tbl" value="#{bindicaprofessores.lista}" var="p"
+                                         scrollHeight="200"
+                                         rows="10"
+                                         paginator="true"
+
+                                         >
+                                <f:facet name="header">
+                                    Lista de Professores Indicados
+                                </f:facet>
+
+                                <p:column id="prof"   
+                                          headerText="Professor" filterBy="#{p.professor.nome}">                       
+                                    <h:outputText
+                                        value="#{p.professor.nome}" />
+                                </p:column>
+                                
+                                <p:column id="curso"   
+                                          headerText="Curso">                       
+                                    <h:outputText
+                                        value="#{p.course.descricao}" />
+                                </p:column>
+                                
+                                <p:column style="width:50px">
+
+                                    <h:commandLink action="#{bindicaprofessores.remove}"
+                                                   onclick="if (!confirm('Confirma a exclusão da Indicação do Professor ?'))
+                                                               return false;" 
+                                                   title="Excluir Indicação do Professor">
+                                        <h:graphicImage library="pictures" name="remove.png"
+                                                        style="border:0" />
+                                        <f:setPropertyActionListener target="#{bindicaprofessores.professorModulo}"
+                                                                     value="#{p}" />
+                                    </h:commandLink>
+
+                                </p:column>
+
+
+                            </p:dataTable>
+
+                        </p:panel>
+                        <br />
+                        <p:commandButton class="btn btn-large btn-danger" value="Cancelar" action="/template/layout.jsf" ajax="true"/>                
+                    </div>
+                </div>
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+</html>

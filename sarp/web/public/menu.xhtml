@@ -25,7 +25,7 @@
                                 <p:menuitem value="Módulos" url="/coordpedag/modulelist.jsf" />
                             </sec:ifAnyGranted>
                             <sec:ifAnyGranted roles="ROLE_CORD">
-                                <p:menuitem value="Indicar Professores" url="/template/layout.jsf" />
+                                <p:menuitem value="Indicar Professores" url="/coordcurso/indicarprofessormoulo.jsf" />
                             </sec:ifAnyGranted>
                             <sec:ifAnyGranted roles="ROLE_PROF">
                                 <p:menuitem value="Inserir Aulas" url="/template/layout.jsf" />
@@ -42,6 +42,9 @@
                             <sec:ifAnyGranted roles="ROLE_CPEDAG">
                                 <p:menuitem value="Instituição" url="/coordpedag/college.jsf" />
                                 <p:menuitem value="Curso" url="/coordpedag/courselist.jsf" />
+
+                            </sec:ifAnyGranted>
+                            <sec:ifAnyGranted roles="ROLE_CPEDAG, ROLE_CORD">
                                 <p:menuitem value="Pessoa" url="/coordcurso/personlist.jsf" />
                             </sec:ifAnyGranted>
                             <sec:ifAnyGranted roles="ROLE_CORD">

@@ -5,6 +5,7 @@
  */
 package br.sarp.persistence.person;
 
+import br.sarp.persistence.periodo.Periodo;
 import br.sarp.user.User;
 import br.sarp.user.UserDAO;
 import br.sarp.util.GenericDAO;
@@ -53,5 +54,7 @@ public class PersonDAO extends GenericDAO<Person> {
         return lista;
 
     }
+    
+    
 
 }

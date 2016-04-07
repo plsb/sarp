@@ -50,6 +50,13 @@
                                             requiredMessage="Informe a Data Inicial" pattern="dd/MM/yyyy"
                                             />
                                 
+                                <p:outputLabel value="Período: *" for="per"/>
+                                <p:selectOneMenu id="per" value="#{bmodule.module.periodo}" 
+                                                 class="form-control" style="width:200px">
+                                    <f:selectItem itemLabel=" " itemValue="" />
+                                    <f:selectItems  value="#{bmodule.periodoSelect}"/>					 			
+                                </p:selectOneMenu>
+                                
                                 <p:outputLabel value="Competências: " for="comp"/>
                                 <p:inputTextarea rows="4" cols="100" id="comp" value="#{bmodule.module.competencias}" />
                                 

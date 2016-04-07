@@ -43,9 +43,14 @@
                         <h:outputText
                             value="#{m.professor}" />
                     </p:column>
-                    <p:column id="data" headerText="Data" style="width:250px">
+                    <p:column id="data" headerText="Data" style="width:100px">
                         <h:outputText
                             value="#{m.data}" />
+                    </p:column>
+                    
+                    <p:column id="periodo" headerText="Período" style="width:50px">
+                        <h:outputText
+                            value="#{m.periodo.descricao}" />
                     </p:column>
 
                     <p:column style="width:50px">

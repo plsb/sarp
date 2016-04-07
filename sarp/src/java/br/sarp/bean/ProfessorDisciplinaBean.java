@@ -17,6 +17,7 @@ import br.sarp.persistence.profdisciplina.ProfessorDisciplina;
 import br.sarp.persistence.profdisciplina.ProfessorDisciplinaDAO;
 import br.sarp.util.UsuarioAtivo;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -127,7 +128,8 @@ public class ProfessorDisciplinaBean {
 
             PersonDAO pDAO = new PersonDAO();
 
-            List<Person> categorias = pDAO.checkPermission("ROLE_PROF");
+            List<Person> categorias = pDAO.checkExists("eProfessor", true);
+            Collections.sort(categorias);
             this.showDataSelectPessoa(this.pessoaSelect, categorias, "");
         }
 

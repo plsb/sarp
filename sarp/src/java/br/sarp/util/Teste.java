@@ -5,6 +5,8 @@
  */
 package br.sarp.util;
 
+import br.sarp.user.UserDAO;
+
 /**
  *
  * @author Pedro Saraiva
@@ -13,6 +15,8 @@ public class Teste {
     
     public static void main(String[] args) {
         HibernateUtil.getSessionFactory().openSession();
+        UserDAO uDAO = new UserDAO();
+        uDAO.list();
     }
     
 }

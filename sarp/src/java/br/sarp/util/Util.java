@@ -5,6 +5,8 @@
  */
 package br.sarp.util;
 
+import br.sarp.persistence.course.Course;
+import br.sarp.persistence.course.CourseDAO;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -262,6 +264,17 @@ public class Util {
         }
         return cal;
     }
-    
+
+    public static Course retornarCurso() {
+        Course course = null;
+        try {
+            CourseDAO cDAO = new CourseDAO();
+            course = cDAO.checkExists("coordenador", UsuarioAtivo.getUser().getPessoa()).get(0);
+            
+        } catch (Exception e) {
+
+        }
+        return course;
+    }
 
 }

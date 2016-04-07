@@ -7,6 +7,10 @@ package br.sarp.bean;
 
 import br.sarp.persistence.module.Module;
 import br.sarp.persistence.module.ModuleDAO;
+import br.sarp.persistence.periodo.Periodo;
+import br.sarp.persistence.periodo.PeriodoDAO;
+import br.sarp.persistence.semestre.Semestre;
+import br.sarp.persistence.semestre.SemestreDAO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.swing.JOptionPane;
 
 /**
@@ -58,6 +63,8 @@ public class ModuleBean {
             mostraMensagemCamposObrigatorios = true;
         } else if (module.getDataFimInformarProfessores() == null) {
             mostraMensagemCamposObrigatorios = true;
+        } else if (module.getPeriodo() == null) {
+            mostraMensagemCamposObrigatorios = true;
         }
 
         if (mostraMensagemCamposObrigatorios) {
@@ -77,7 +84,7 @@ public class ModuleBean {
         module.setHabilidades(module.getHabilidades().toUpperCase());
         module.setCompetencias(module.getCompetencias().toUpperCase());
 
-        if (module.getId() == 0) {
+        if (module.getId() == null) {
             module.setDataCadastro(new Date());
             dao.add(module);
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "", "Cadastro Realizado com Sucesso!");
@@ -110,5 +117,35 @@ public class ModuleBean {
         dao.remove(this.module);
         this.list = dao.list();
         return null;
+    }
+    
+    private List<SelectItem> periodoSelect;
+
+    public List<SelectItem> getPeriodoSelect() {
+        if (this.periodoSelect == null) {
+            this.periodoSelect = new ArrayList<SelectItem>();
+            //ContextoBean contextoBean = scs.util.ContextoUtil.getContextoBean();
+
+            PeriodoDAO dao = new PeriodoDAO();
+            List<Periodo> categorias = dao.listOrderBy("descricao", "", null);
+            this.showDataSelectModeule(this.periodoSelect, categorias, "");
+        }
+
+        return periodoSelect;
+    }
+
+    private void showDataSelectModeule(List<SelectItem> select, List<Periodo> itens, String prefixo) {
+
+        SelectItem item = null;
+        if (itens != null) {
+            for (Periodo s : itens) {
+                item = new SelectItem(s, s.getDescricao());
+                item.setEscape(false);
+
+                select.add(item);
+
+                //this.montaDadosSelect(select, usuario.getNome(), prefixo + "&nbsp;&nbsp;");
+            }
+        }
     }
 }

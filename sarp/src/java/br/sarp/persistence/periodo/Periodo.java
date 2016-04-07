@@ -5,10 +5,13 @@
  */
 package br.sarp.persistence.periodo;
 
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Periodo {
@@ -18,6 +21,12 @@ public class Periodo {
     private Integer id;
     
     private String descricao;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dataInicio;
+    
+    @Temporal(TemporalType.DATE)
+    private Date dataFim;
 
     public Integer getId() {
         return id;
@@ -68,5 +77,22 @@ public class Periodo {
     public String toString() {
         return "Periodo{" + "id=" + id + ", descricao=" + descricao + '}';
     }
+
+    public Date getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public Date getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(Date dataFim) {
+        this.dataFim = dataFim;
+    }
+    
     
 }

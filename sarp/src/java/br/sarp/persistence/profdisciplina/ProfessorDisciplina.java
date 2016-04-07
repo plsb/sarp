@@ -4,7 +4,6 @@ package br.sarp.persistence.profdisciplina;
 import br.sarp.persistence.disciplina.Disciplina;
 import br.sarp.persistence.periodo.Periodo;
 import br.sarp.persistence.person.Person;
-import java.time.Period;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
